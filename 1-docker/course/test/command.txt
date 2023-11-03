@@ -1,0 +1,62 @@
+1. Собрание образы
+$ docker build -t otus/php2022-01 .
+
+
+2. Поднимаем контейнер
+-d: чтобы у нас консоль держался даже если закроем консоль
+-p: проброс порта
+-80:80 мы пробросим 80 порт который на локальке на 80 порт в контейнер
+Всё HTTP соединения идут на 80 порт (потому что у нас в Dockerfile EXPOSE)
+$ docker run -d -p 80:80 otus/php2022-01
+
+3. Узнать образа доступны в системе
+$ docker images
+docker-php_web                    latest                1d1904c1ebcf   3 months ago    142MB
+<none>                            <none>                525aeb1c3d58   3 months ago    82.2MB
+jeanyao                           php81                 892bbe2f90d4   3 months ago    75.6MB
+postgres                          11-alpine             051b27c47a20   3 months ago    235MB
+postgres                          13-alpine             281fee10c798   3 months ago    238MB
+postgres                          12                    10f11c61d788   3 months ago    373MB
+composer                          2.4                   54fe499bbd3c   3 months ago    194MB
+redis                             latest                0256c63af7db   3 months ago    117MB
+nginx                             latest                1403e55ab369   3 months ago    142MB
+mlocati/php-extension-installer   latest                54310ef57439   3 months ago    151kB
+redis                             6.2-alpine            fde943dfa6d2   4 months ago    27.1MB
+mysql                             8.0                   7484689f290f   4 months ago    538MB
+php                               8.1-fpm-alpine        80007fa86af7   4 months ago    75.4MB
+graphiteapp/graphite-statsd       latest                773e5adb8918   5 months ago    853MB
+rabbitmq                          3.8-management        818bf18535d7   10 months ago   253MB
+schickling/mailcatcher            latest                9156fb5a15fb   10 months ago   60.1MB
+redis                             7.0.0                 53aa81e8adfa   10 months ago   117MB
+spectolabs/hoverfly               v1.3.4                070d976c95e5   13 months ago   22MB
+php                               8.0.14-fpm-alpine     0f58fa478285   16 months ago   84MB
+php                               8.1.0-fpm-alpine      38b58404f174   16 months ago   91.2MB
+mongo-express                     1.0.0-alpha.4         2d2fb2cabc8f   18 months ago   136MB
+mongo                             5.0.3                 fefd78e9381a   18 months ago   699MB
+hello-world                       latest                feb5d9fea6a5   18 months ago   13.3kB
+postgres                          13.3-alpine           f0b3bc4eab99   20 months ago   191MB
+postgres                          13.3                  b2fcd079c1d4   21 months ago   315MB
+sentry                            latest                fe6992de61df   3 years ago     869MB
+
+
+4. Узнать рабочый контернер
+$ docker ps
+CONTAINER ID   IMAGE                         COMMAND                  CREATED       STATUS       PORTS                                                                                                                                                                                                                                                                                          NAMES
+1787a2604fb0   memcached:latest              "docker-entrypoint.s…"   4 weeks ago   Up 3 hours   0.0.0.0:13211->11211/tcp, :::13211->11211/tcp                                                                                                                                                                                                                                                  otusproject-memcached-1
+234898a43d22   grafana/grafana               "/run.sh"                4 weeks ago   Up 3 hours   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                                                                                                                                                                                                                                      grafana
+b3aa987bae40   graphiteapp/graphite-statsd   "/entrypoint"            4 weeks ago   Up 3 hours   0.0.0.0:2003-2004->2003-2004/tcp, :::2003-2004->2003-2004/tcp, 2013-2014/tcp, 8080/tcp, 0.0.0.0:2023-2024->2023-2024/tcp, :::2023-2024->2023-2024/tcp, 0.0.0.0:8126->8126/tcp, :::8126->8126/tcp, 8125/tcp, 0.0.0.0:8125->8125/udp, :::8125->8125/udp, 0.0.0.0:8080->80/tcp, :::8080->80/tcp   graphite
+1ad080344466   postgres:12                   "docker-entrypoint.s…"   4 weeks ago   Up 3 hours   0.0.0.0:15432->5432/tcp, :::15432->5432/tcp                                                                                                                                                                                                                                                    postgresql
+
+
+5. Запускаем наш контейнер и докер его присвоит ИД
+$ docker run -d -p 80:80 otus/php2022-01
+e16881cf874bf865a989934dacae4a6a9aa474d640b537a64e350b36efdeb418
+
+6. Посмотреть если наш контейнер запустился
+$ docker ps
+
+CONTAINER ID   IMAGE                         COMMAND                  CREATED              STATUS              PORTS                                                                                                                                                                                                                                                                                          NAMES
+bc0e526e3d1b   otus/php2022-01               "nginx -g 'daemon of…"   About a minute ago   Up About a minute   0.0.0.0:3030->80/tcp, :::3030->80/tcp                                                                                                                                                                                                                                                          brave_poitras
+
+$ docker run -d -p 9000:80 otus/php2022-01
+$ docker stop bc0e526e3d1b

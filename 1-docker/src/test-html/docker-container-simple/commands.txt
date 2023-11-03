@@ -1,0 +1,3 @@
+sudo docker ps - list of machines
+sudo docker top %ID% - list of processes in container
+sudo docker exec -it %ID% bash - command line in container

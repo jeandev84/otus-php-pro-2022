@@ -1,0 +1,13 @@
+ubuntu playground:
+https://www.katacoda.com/courses/ubuntu/playground
+
+Команды Linux:
+https://www.hostinger.com/tutorials/linux-commands
+https://kinsta.com/blog/linux-commands/
+
+Bash:
+https://habr.com/ru/company/ruvds/blog/325522/
+
+SSH:
+https://habr.com/ru/post/122445/
+https://selectel.ru/blog/ssh-tunnels/
