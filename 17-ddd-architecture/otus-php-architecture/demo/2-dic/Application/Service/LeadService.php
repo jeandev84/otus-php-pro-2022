@@ -8,7 +8,6 @@ use App\Application\DTO\CreateLeadRequest;
 use App\Application\DTO\CreateLeadResponse;
 use App\Application\DTO\SendLeadGatewayRequest;
 use App\Domain\Model\Lead;
-use App\Domain\Model\LoanLead;
 use App\Domain\ValueObject\Name;
 use App\Domain\ValueObject\Phone;
 
@@ -64,7 +63,7 @@ class LeadService
      */
     private function createLead(CreateLeadRequest $request): Lead
     {
-         $lead = new LoanLead(
+         $lead = new Lead(
              new Name($request->getName()),
              new Phone($request->getPhone())
          );
