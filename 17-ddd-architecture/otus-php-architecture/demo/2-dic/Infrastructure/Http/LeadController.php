@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Http;
 
+use App\Application\Contract\LeadServiceInterface;
 use App\Application\DTO\CreateLeadRequest;
-use App\Application\Service\LeadService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,14 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 class LeadController extends AbstractFOSRestController
 {
 
-
-      private LeadService $leadService;
+      private LeadServiceInterface $leadService;
 
 
       /**
-       * @param LeadService $leadService
+       * @param LeadServiceInterface $leadService
       */
-      public function __construct(LeadService $leadService)
+      public function __construct(LeadServiceInterface $leadService)
       {
           $this->leadService = $leadService;
       }

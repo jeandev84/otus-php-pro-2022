@@ -5,6 +5,7 @@ namespace App\Infrastructure\Http;
 
 use App\Application\Contract\LeadServiceInterface;
 use App\Application\DTO\CreateLeadRequest;
+use App\Application\DTO\FindLeadRequest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,7 +29,6 @@ class LeadController extends AbstractFOSRestController
       /**
        * @Rest\Post("/api/v1/lead")
        * @ParamConverter("createLeadRequest", converter="fos_rest.request_body")
-       *
        * @param CreateLeadRequest $createLeadRequest
        * @return Response
       */
@@ -37,5 +37,21 @@ class LeadController extends AbstractFOSRestController
            $response = $this->leadService->createAndSendLead($createLeadRequest);
            $view     = $this->view($response, 201);
            return $this->handleView($view);
+      }
+
+
+
+
+      /**
+       * @Rest\Get("/api/v1/lead/{id}")
+       * @param string $id
+       * @return Response
+      */
+      public function findLead(string $id): Response
+      {
+            $findLeadRequest  = new FindLeadRequest($id);
+            $findLeadResponse = $this->leadService->findLead($findLeadRequest);
+            $view = $this->view($findLeadResponse, 200);
+            return $this->handleView($view);
       }
 }

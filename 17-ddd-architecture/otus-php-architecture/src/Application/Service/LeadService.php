@@ -6,7 +6,10 @@ namespace App\Application\Service;
 use App\Application\Contract\BankGatewayInterface;
 use App\Application\DTO\CreateLeadRequest;
 use App\Application\DTO\CreateLeadResponse;
+use App\Application\DTO\FindLeadRequest;
+use App\Application\DTO\FindLeadResponse;
 use App\Application\DTO\SendLeadGatewayRequest;
+use App\Domain\Contract\LeadRepositoryInterface;
 use App\Domain\Model\Lead;
 use App\Domain\Model\LoanLead;
 use App\Domain\ValueObject\Name;
@@ -18,15 +21,28 @@ class LeadService
        /**
         * @var BankGatewayInterface
        */
-       protected BankGatewayInterface $bankGateway;
+       private BankGatewayInterface $bankGateway;
 
 
        /**
-        * @param BankGatewayInterface $bankGateway
+        * @var LeadRepositoryInterface
        */
-       public function __construct(BankGatewayInterface $bankGateway)
+       private LeadRepositoryInterface $leadRepository;
+
+
+
+       /**
+         * @param BankGatewayInterface $bankGateway
+        *
+         * @param LeadRepositoryInterface $leadRepository
+       */
+       public function __construct(
+           BankGatewayInterface $bankGateway,
+           LeadRepositoryInterface $leadRepository
+       )
        {
            $this->bankGateway = $bankGateway;
+           $this->leadRepository = $leadRepository;
        }
 
 
@@ -58,31 +74,51 @@ class LeadService
 
 
 
-    /**
-     * @param CreateLeadRequest $request
-     * @return Lead
-     */
-    private function createLead(CreateLeadRequest $request): Lead
-    {
-         $lead = new LoanLead(
-             new Name($request->getName()),
-             new Phone($request->getPhone())
-         );
+       /**
+        * @param FindLeadRequest $request
+        *
+        * @return FindLeadResponse
+       */
+       public function findLead(FindLeadRequest $request): FindLeadResponse
+       {
+           $lead = $this->leadRepository->findLeadById($request->getId());
+           // TODO обработка ситуации, когда лид не найден
+           return new FindLeadResponse(
+               $lead->getName()->getValue(),
+               $lead->getPhone()->getValue(),
+               $lead->getDescription()
+           );
+       }
 
-         return $lead;
-    }
 
-    /**
-     * @param Lead $lead
-     *
-     * @return SendLeadGatewayRequest
-    */
-    public function createGatewayRequest(Lead $lead): SendLeadGatewayRequest
-    {
-        $gatewayRequest = new SendLeadGatewayRequest(
-            $lead->getName()->getValue(),
-            $lead->getPhone()->getValue()
-        );
-        return $gatewayRequest;
-    }
+
+
+
+        /**
+         * @param CreateLeadRequest $request
+         * @return Lead
+         */
+        private function createLead(CreateLeadRequest $request): Lead
+        {
+             $lead = new LoanLead(
+                 new Name($request->getName()),
+                 new Phone($request->getPhone())
+             );
+
+             return $lead;
+        }
+
+        /**
+         * @param Lead $lead
+         *
+         * @return SendLeadGatewayRequest
+        */
+        public function createGatewayRequest(Lead $lead): SendLeadGatewayRequest
+        {
+            $gatewayRequest = new SendLeadGatewayRequest(
+                $lead->getName()->getValue(),
+                $lead->getPhone()->getValue()
+            );
+            return $gatewayRequest;
+        }
 }

@@ -10,7 +10,7 @@ use App\Domain\ValueObject\Phone;
 /**
  * Сущность Lead
 */
-class Lead
+abstract class Lead
 {
 
     private Name $name;
@@ -49,4 +49,12 @@ class Lead
     {
         return $this->phone;
     }
+
+
+
+
+    /**
+     * @return string
+    */
+    abstract public function getDescription(): string;
 }
