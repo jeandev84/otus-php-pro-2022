@@ -1,7 +1,6 @@
 <?php
 namespace App\Infrastructure\Command;
 
-use App\Application\Contract\FindLeadInterface;
 use App\Application\Contract\LeadServiceInterface;
 use App\Application\DTO\FindLeadRequest;
 use Symfony\Component\Console\Command\Command;
@@ -17,15 +16,14 @@ class FindLeadCommand extends Command
 
      protected static $defaultName = "app:lead:find";
 
-     private FindLeadInterface $leadService;
+     private LeadServiceInterface $leadService;
 
 
-     public function __construct(FindLeadInterface $leadService)
+     public function __construct(LeadServiceInterface $leadService)
      {
          parent::__construct(self::$defaultName);
          $this->leadService = $leadService;
      }
-
 
 
 

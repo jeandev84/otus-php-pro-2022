@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Application\Service;
 
 use App\Application\Contract\BankGatewayInterface;
+use App\Application\Contract\LeadServiceInterface;
 use App\Application\DTO\CreateLeadRequest;
 use App\Application\DTO\CreateLeadResponse;
 use App\Application\DTO\FindLeadRequest;
@@ -16,7 +17,7 @@ use App\Domain\ValueObject\Name;
 use App\Domain\ValueObject\Phone;
 
 
-class LeadService
+class LeadService implements LeadServiceInterface
 {
        /**
         * @var BankGatewayInterface
@@ -36,10 +37,7 @@ class LeadService
         *
          * @param LeadRepositoryInterface $leadRepository
        */
-       public function __construct(
-           BankGatewayInterface $bankGateway,
-           LeadRepositoryInterface $leadRepository
-       )
+       public function __construct(BankGatewayInterface $bankGateway, LeadRepositoryInterface $leadRepository)
        {
            $this->bankGateway = $bankGateway;
            $this->leadRepository = $leadRepository;
