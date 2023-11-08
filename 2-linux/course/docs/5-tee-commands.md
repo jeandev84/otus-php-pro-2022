@@ -3,6 +3,7 @@
 1. Tee
 ```
 Команда "tee" полезная когда мы хотим вывести результат и на экран и на файл
+или сохранить результат выполнения команды
 Дублирует вывод из STDOUT на экран и в файл
 
 $ (ls -la | tee file5.txt) || (ls - la test123 2> stdout)
@@ -44,4 +45,29 @@ command1 | command 2 |..| commandN
 ... ит.д
 
 $ ls -la | tee file.txt
+```
+
+
+3. GREP 
+```
+Команда GREP она нужна для того чтобы фильтровать данных в тестовом потоке
+$ ls -la | grep test
+drwxrwxr-x 2 yao yao 4096 апр 16  2023 test1
+drwxrwxr-x 2 yao yao 4096 апр 16  2023 test2
+drwxrwxr-x 2 yao yao 4096 апр 16  2023 test3
+drwxrwxr-x 4 yao yao 4096 апр 16  2023 test4
+drwxrwxr-x 4 yao yao 4096 апр 16  2023 test5
+
+Например:
+Мы хотим фильтровать в нашем каталоге все папки или файлы с названием "file"
+$ ls -la | grep file
+-rw-rw-r-- 1 yao yao    5 апр 16  2023 file1
+-rw-rw-r-- 1 yao yao    5 апр 16  2023 file1_hard_link
+-rw-rw-r-- 1 yao yao    5 апр 16  2023 file1_soft_link
+-rw-rw-r-- 1 yao yao    0 апр 16  2023 file2
+-rw-rw-r-- 1 yao yao    0 апр 16  2023 file3
+-rw-rw-r-- 1 yao yao    0 апр 16  2023 file4
+-rw-rw-r-- 1 yao yao    0 апр 16  2023 file66
+-rw-rw-r-- 1 yao yao 1018 апр 16  2023 file.txt
+-rw-rw-r-- 1 yao yao    0 апр 16  2023 .hidden_file
 ```
