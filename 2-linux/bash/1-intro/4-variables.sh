@@ -11,6 +11,9 @@ echo "Home for the current user is: $HOME"
 echo "I have \$1 in my pocket"
 
 
+# show user
+echo "I am user $USER"
+
 # 2. Пользовательские переменные
 
 # testing variables
