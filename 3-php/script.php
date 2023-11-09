@@ -2,18 +2,6 @@
 declare(strict_types=1);
 
 
-class Duck
-{
-    private string $name;
-
-    public function __construct(string $name)
-    {
-        $this->name = $name;
-    }
-}
-
-
-
 function display_memory_usage() {
     echo '----------';
     echo PHP_EOL;
@@ -30,52 +18,49 @@ function display_divider() {
 }
 
 
-echo 'Создаём Скруджа:'. PHP_EOL;
-$mcDuck = new Duck("Скрудж МакДак");
-xdebug_debug_zval('mcDuck');
-xdebug_debug_zval('darkwingDuck');
-xdebug_debug_zval('negaduck');
+class SpiderMan {
+    public SpiderMan $real;
+    public array $clones = [];
+}
 
+
+echo "Запускаем скрипт". PHP_EOL;
+display_memory_usage();
+display_divider();
+
+echo "Создаём Человека-паука". PHP_EOL;
+$spiderman = new SpiderMan();
+
+echo "Создаём клонов Человека-паука". PHP_EOL;
+for($i = 0; $i < 100_000; $i++) {
+     $clone = new SpiderMan();
+     $clone->real = $spiderman;
+     $spiderman->clones[] = $clone;
+}
+
+
+xdebug_debug_zval('spiderman');
+xdebug_debug_zval('clone');
 display_memory_usage();
 display_divider();
 
 
-echo 'Создаём Чёрного Плаща:'. PHP_EOL;
-$darkwingDuck = new Duck("Чёрный Плащ");
-xdebug_debug_zval('mcDuck');
-xdebug_debug_zval('darkwingDuck');
-xdebug_debug_zval('negaduck');
 
+echo "Удаляем Человека-паука". PHP_EOL;
+unset($spiderman);
+echo "Удаляем последнего клонов Человека-паука";
+unset($clone);
+
+xdebug_debug_zval('spiderman');
+xdebug_debug_zval('clone');
 display_memory_usage();
 display_divider();
 
 
-
-echo 'Создаём Антиплаща (он ссылается на Чёрного Плаща):'. PHP_EOL;
-$negaduck = $darkwingDuck;
-xdebug_debug_zval('mcDuck');
-xdebug_debug_zval('darkwingDuck');
-xdebug_debug_zval('negaduck');
-
-display_memory_usage();
-display_divider();
-
-
-echo 'Удаляем Чёрного Плаща:'. PHP_EOL;
-unset($darkwingDuck);
-xdebug_debug_zval('mcDuck');
-xdebug_debug_zval('darkwingDuck');
-xdebug_debug_zval('negaduck');
-
-display_memory_usage();
-display_divider();
-
-
-echo 'Удаляем Антиплаща:'. PHP_EOL;
-unset($negaduck);
-xdebug_debug_zval('mcDuck');
-xdebug_debug_zval('darkwingDuck');
-xdebug_debug_zval('negaduck');
+echo "Собираем ссылки". PHP_EOL;
+gc_collect_cycles();
+echo "Собираем ссылок: ". gc_status()['collected'];
+echo PHP_EOL;
 
 display_memory_usage();
 display_divider();
