@@ -25,7 +25,7 @@ $ git push origin YJean/hw2
 .env
 vendor/
 .htaccess
-runtime/
+2-runtime/
 tmp/
 dbdata/
 *.log
