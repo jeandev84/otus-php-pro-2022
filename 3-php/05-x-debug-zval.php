@@ -64,10 +64,23 @@ display_memory_usage();
 display_divider();
 
 
-
 echo 'Удаляем Чёрного Плаща:'. PHP_EOL;
 unset($darkwingDuck);
 
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
+
+display_memory_usage();
+display_divider();
+
+
+echo 'Удаляем Антиплаща:'. PHP_EOL;
+unset($negaduck);
+
+xdebug_debug_zval('mcDuck');
+xdebug_debug_zval('darkwingDuck');
+xdebug_debug_zval('negaduck');
+
+display_memory_usage();
+display_divider();
