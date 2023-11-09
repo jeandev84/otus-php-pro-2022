@@ -32,7 +32,6 @@ function display_divider() {
 
 echo 'Создаём Скруджа:'. PHP_EOL;
 $mcDuck = new Duck("Скрудж МакДак");
-
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
@@ -43,7 +42,6 @@ display_divider();
 
 echo 'Создаём Чёрного Плаща:'. PHP_EOL;
 $darkwingDuck = new Duck("Чёрный Плащ");
-
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
@@ -55,7 +53,6 @@ display_divider();
 
 echo 'Создаём Антиплаща (он ссылается на Чёрного Плаща):'. PHP_EOL;
 $negaduck = $darkwingDuck;
-
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
@@ -66,7 +63,6 @@ display_divider();
 
 echo 'Удаляем Чёрного Плаща:'. PHP_EOL;
 unset($darkwingDuck);
-
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
@@ -77,7 +73,6 @@ display_divider();
 
 echo 'Удаляем Антиплаща:'. PHP_EOL;
 unset($negaduck);
-
 xdebug_debug_zval('mcDuck');
 xdebug_debug_zval('darkwingDuck');
 xdebug_debug_zval('negaduck');
