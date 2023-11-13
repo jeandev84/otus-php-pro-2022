@@ -1,0 +1,19 @@
+{
+    "name": "jeandev84/otus-php-price",
+    "type": "project",
+    "authors": [
+      {
+         "name": "Jean-Claude",
+         "email": "jeanyao@ymail.com"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "Otus\\Price\\": "src/"
+      }
+    },
+    "require": {
+        "php": ">= 7.4",
+        "symfony/var-dumper": "^6.3"
+    }
+}
