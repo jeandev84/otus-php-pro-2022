@@ -1,0 +1,16 @@
+{
+    "name": "jeandev84/otus-composer-package",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jean-Claude",
+            "email": "jeanyao@ymail.com"
+        }
+    ],
+    "autoload": {
+        "JeandevOtusComposerPackage\\": "src/"
+    },
+    "require": {
+        "php": ">= 7.4"
+    }
+}
